@@ -1,101 +1,91 @@
-// 1. Datos que se inyectarán en tu CV
+/**
+ * BLOQUE 02 - JAVASCRIPT
+ * CV Interactivo - Verónica Alvarado
+ */
+
+// 1. DATOS: Arreglo de objetos con tus proyectos
 const projects = [
-    { title: "Landing Personal", tech: ["HTML", "CSS"], year: 2024, url: "#" },
-    { title: "CV Interactivo", tech: ["JavaScript", "DOM"], year: 2025, url: "#" }
+    {
+        title: "Reto 01: CV Personal",
+        tech: ["HTML5", "CSS3"],
+        year: 2026,
+        desc: "Estructura semántica y diseño profesional."
+    },
+    {
+        title: "Reto 02: Interactividad JS",
+        tech: ["JavaScript", "DOM"],
+        year: 2026,
+        desc: "Manipulación de elementos y eventos en tiempo real."
+    }
 ];
 
-// 2. Renderizado de proyectos (ahora admite enlaces y atributo data)
-function renderProjects(containerId, items = projects) {
+// 2. FUNCIÓN: Renderizar (dibujar) proyectos en el HTML
+function renderProjects(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    container.innerHTML = "";
-    items.forEach((item) => {
-        const card = document.createElement("article");
-        card.className = "project-card";
-        card.dataset.url = item.url || "";
-        card.innerHTML = `
-            <h3 class="project-title">${item.title}</h3>
-            <p><strong>Tecnologías:</strong> ${item.tech.join(", ")}</p>
-            <p><strong>Año:</strong> ${item.year}</p>
+    container.innerHTML = ""; // Limpiamos el contenedor
+
+    projects.forEach(project => {
+        const article = document.createElement("article");
+        article.className = "item"; // Usamos la clase que ya tienes en tu CSS
+        article.innerHTML = `
+            <h3>${project.title}</h3>
+            <p><strong>Tecnologías:</strong> ${project.tech.join(", ")} | <strong>Año:</strong> ${project.year}</p>
+            <p>${project.desc}</p>
         `;
-        container.appendChild(card);
+        container.appendChild(article);
     });
 }
 
-// 3. Toggle tema y persistencia
+// 3. FUNCIÓN: Modo Oscuro / Claro
 function toggleTheme() {
     const body = document.body;
-    const nextTheme = body.dataset.theme === "dark" ? "light" : "dark";
-    body.dataset.theme = nextTheme;
-    localStorage.setItem("preferred-theme", nextTheme);
+    const currentTheme = body.getAttribute("data-theme");
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    body.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme); // Guarda tu preferencia
 }
 
-// 4. Inicializar tema guardado o preferencia del sistema
-function initTheme() {
-    const saved = localStorage.getItem("preferred-theme");
-    if (saved) {
-        document.body.dataset.theme = saved;
-        return;
-    }
-    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.body.dataset.theme = prefersDark ? "dark" : "light";
-}
+// 4. FUNCIÓN: Validación de Formulario
+function setupForm() {
+    const form = document.getElementById("contact-form");
+    const status = document.querySelector(".form-status");
 
-// 5. Utilidades de filtrado/búsqueda (si existen elementos en el DOM)
-function getUniqueTechs(items = projects) {
-    const set = new Set();
-    items.forEach(p => p.tech.forEach(t => set.add(t)));
-    return Array.from(set).sort();
-}
+    if (!form) return;
 
-function filterProjects(query = "", tech = "") {
-    const q = query.trim().toLowerCase();
-    return projects.filter(p => {
-        const matchesQuery = !q || p.title.toLowerCase().includes(q) || p.tech.join(" ").toLowerCase().includes(q);
-        const matchesTech = !tech || p.tech.includes(tech);
-        return matchesQuery && matchesTech;
+    form.addEventListener("submit", (e) => {
+        e.preventDefault(); // Evita que la página se recargue
+        
+        const name = form.querySelector("[name='name']").value;
+        const message = form.querySelector("[name='message']").value;
+
+        if (name.length < 2 || message.length < 10) {
+            status.textContent = "❌ Por favor, revisa los datos (nombre o mensaje muy corto).";
+            status.style.color = "red";
+        } else {
+            status.textContent = "✅ ¡Gracias! Mensaje validado correctamente.";
+            status.style.color = "green";
+            form.reset(); // Limpia el formulario
+        }
     });
 }
 
-function initFilters(containerId) {
-    const search = document.getElementById("search-projects");
-    const select = document.getElementById("filter-tech");
-
-    if (select) {
-        select.innerHTML = `<option value="">Todas</option>` + getUniqueTechs().map(t => `<option value="${t}">${t}</option>`).join("");
-        select.addEventListener("change", () => {
-            renderProjects(containerId, filterProjects(search ? search.value : "", select.value));
-        });
-    }
-
-    if (search) {
-        search.addEventListener("input", () => {
-            renderProjects(containerId, filterProjects(search.value, select ? select.value : ""));
-        });
-    }
-}
-
-// 6. Handler para abrir proyecto al hacer click en la tarjeta
-function initProjectClicks(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.addEventListener("click", (e) => {
-        const card = e.target.closest(".project-card");
-        if (!card) return;
-        const url = card.dataset.url;
-        if (url) window.open(url, "_blank", "noopener");
-    });
-}
-
-// 7. Inicialización al cargar la página
+// 5. INICIALIZACIÓN: Ejecutar todo cuando el HTML esté listo
 document.addEventListener("DOMContentLoaded", () => {
-    const containerId = "projects-container";
-    initTheme();
-    renderProjects(containerId);
-    initFilters(containerId);
-    initProjectClicks(containerId);
+    console.log("Script cargado correctamente 🚀");
+    
+    // Dibujamos los proyectos en el div con id="projects"
+    renderProjects("projects");
+    
+    // Activamos el formulario
+    setupForm();
+    
+    // Activamos el botón de tema
+    const btnTheme = document.getElementById("toggle-theme");
+    if (btnTheme) btnTheme.addEventListener("click", toggleTheme);
 
-    const themeButton = document.getElementById("toggle-theme");
-    if (themeButton) themeButton.addEventListener("click", toggleTheme);
+    // Ver tus datos en una tabla linda en la consola (F12)
+    console.table(projects);
 });

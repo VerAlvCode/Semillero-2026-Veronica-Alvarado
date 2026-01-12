@@ -123,3 +123,33 @@ footer {
         font-size: 1.2rem;
     }
 }
+/* 1. Definimos los colores para el modo oscuro */
+[data-theme="dark"] {
+    background-color: #1a1a1a; /* Fondo casi negro */
+    color: #f4f4f4;            /* Texto casi blanco */
+}
+
+/* 2. Ajustamos los contenedores y tarjetas para que resalten en oscuro */
+[data-theme="dark"] .container, 
+[data-theme="dark"] section,
+[data-theme="dark"] .item {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: #444;
+}
+
+/* 3. Ajustamos los encabezados en modo oscuro */
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3 {
+    color: #4ea8de; /* Un azul clarito que resalte */
+}
+
+/* 4. Opcional: Estilo para el botón */
+#toggle-theme {
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

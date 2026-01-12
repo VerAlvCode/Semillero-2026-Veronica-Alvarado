@@ -1,0 +1,125 @@
+/* 1. Reset básico y Tipografía */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.8;
+    color: #334155;
+    background-color: #f8fafc;
+    padding-bottom: 40px;
+}
+
+.container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 2. Encabezamiento */
+header {
+    background-color: #1e293b; /* Azul muy oscuro profesional */
+    color: #ffffff;
+    padding: 60px 0;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 5px solid #3b82f6;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #94a3b8;
+}
+
+/* 3. Secciones */
+section {
+    background: #ffffff;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-left: 4px solid #3b82f6;
+    padding-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 4. Listas y Elementos */
+ul {
+    list-style-position: inside;
+    margin-left: 10px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+.item h3 {
+    font-size: 1.2rem;
+    color: #334155;
+    margin-bottom: 5px;
+}
+
+/* 5. Enlaces y Contacto */
+a {
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* 6. Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* 7. Responsive */
+@media (max-width: 600px) {
+    header {
+        padding: 40px 0;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+}

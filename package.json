@@ -1,0 +1,24 @@
+{
+  "name": "proyecto2026",
+  "version": "1.0.0",
+  "description": "¡Bienvenido/a a mi repositorio del Semillero! Este espacio está diseñado para documentar mi proceso de aprendizaje en el proyecto Python Developer, organizado por bloques temáticos y retos técnicos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "live-server 02-javascript/reto-02-interactividad-cv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VerAlvCode/Semillero-2026-Veronica-Alvarado.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VerAlvCode/Semillero-2026-Veronica-Alvarado/issues"
+  },
+  "homepage": "https://github.com/VerAlvCode/Semillero-2026-Veronica-Alvarado#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
